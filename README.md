@@ -110,8 +110,8 @@ nixiaplay/
 
 1. Clone repository:
 ```bash
-git clone <repository-url>
-cd nixiaplay
+git clone https://github.com/feunixs/nixia-play.git
+cd nixia-play
 ```
 
 2. Install dependencies:
