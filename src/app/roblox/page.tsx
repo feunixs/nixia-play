@@ -301,8 +301,8 @@ export default function RobloxPage() {
                 </div>
               </div>
               <p className="text-purple-100 mb-4">
-                "I love creating games that help Indonesian students learn while having fun. 
-                NixiaPlay has been an amazing platform to showcase my work!"
+                &quot;I love creating games that help Indonesian students learn while having fun. 
+                NixiaPlay has been an amazing platform to showcase my work!&quot;
               </p>
               <button className="bg-white text-purple-600 px-4 py-2 rounded font-medium hover:bg-gray-100">
                 View Profile
