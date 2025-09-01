@@ -1,6 +1,13 @@
 'use client';
 
 import { useState } from 'react';
+import { PlayerProgressChart, HeroMetaChart } from '@/components/Charts';
+import { 
+  TrophyIcon, 
+  ChartBarIcon, 
+  UsersIcon,
+  StarIcon 
+} from '@heroicons/react/24/outline';
 
 export default function MLBBPage() {
   const [selectedTab, setSelectedTab] = useState('dashboard');
@@ -14,8 +21,17 @@ export default function MLBBPage() {
     wins: 122,
     losses: 34,
     favoriteHero: 'Gusion',
-    kda: '7.2/2.1/8.9'
+    heroWinRate: 85.2,
+    kda: '2.8/1.2/4.5'
   };
+
+  const matchHistory = [
+    { id: 1, hero: 'Gusion', mode: 'Ranked', duration: '12:45', result: 'Win', kda: '8/2/5' },
+    { id: 2, hero: 'Ling', mode: 'Ranked', duration: '18:32', result: 'Win', kda: '12/3/7' },
+    { id: 3, hero: 'Lancelot', mode: 'Classic', duration: '15:20', result: 'Loss', kda: '5/6/8' },
+    { id: 4, hero: 'Gusion', mode: 'Ranked', duration: '14:15', result: 'Win', kda: '9/1/6' },
+    { id: 5, hero: 'Hayabusa', mode: 'Ranked', duration: '16:48', result: 'Win', kda: '11/2/4' }
+  ];
 
   const recentMatches = [
     { id: 1, hero: 'Gusion', result: 'Victory', kda: '12/2/8', duration: '18:45' },
@@ -71,58 +87,75 @@ export default function MLBBPage() {
 
         {/* Dashboard Tab */}
         {selectedTab === 'dashboard' && (
-          <div className="space-y-8">
-            {/* Player Stats Cards */}
+          <div className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-                <h3 className="text-sm font-medium text-gray-400 mb-2">Current Rank</h3>
-                <p className="text-2xl font-bold text-blue-400">{playerStats.rank}</p>
-                <p className="text-sm text-gray-300">{playerStats.points} points</p>
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">Current Rank</h3>
+                    <p className="text-3xl font-bold text-purple-600">{playerStats.rank}</p>
+                    <p className="text-sm text-gray-600">{playerStats.points} points</p>
+                  </div>
+                  <TrophyIcon className="w-12 h-12 text-purple-600" />
+                </div>
               </div>
-              <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-                <h3 className="text-sm font-medium text-gray-400 mb-2">Win Rate</h3>
-                <p className="text-2xl font-bold text-green-400">{playerStats.winRate}%</p>
-                <p className="text-sm text-gray-300">{playerStats.wins}W / {playerStats.losses}L</p>
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">Win Rate</h3>
+                    <p className="text-3xl font-bold text-green-600">{playerStats.winRate}%</p>
+                    <p className="text-sm text-gray-600">{playerStats.totalMatches} matches</p>
+                  </div>
+                  <ChartBarIcon className="w-12 h-12 text-green-600" />
+                </div>
               </div>
-              <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-                <h3 className="text-sm font-medium text-gray-400 mb-2">Favorite Hero</h3>
-                <p className="text-2xl font-bold text-purple-400">{playerStats.favoriteHero}</p>
-                <p className="text-sm text-gray-300">Most played</p>
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">Favorite Hero</h3>
+                    <p className="text-3xl font-bold text-blue-600">{playerStats.favoriteHero}</p>
+                    <p className="text-sm text-gray-600">{playerStats.heroWinRate}% win rate</p>
+                  </div>
+                  <StarIcon className="w-12 h-12 text-blue-600" />
+                </div>
               </div>
-              <div className="bg-gray-800 p-6 rounded-lg border border-gray-700">
-                <h3 className="text-sm font-medium text-gray-400 mb-2">Average KDA</h3>
-                <p className="text-2xl font-bold text-yellow-400">{playerStats.kda}</p>
-                <p className="text-sm text-gray-300">K/D/A ratio</p>
+              <div className="bg-white p-6 rounded-lg shadow-lg">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-800">Season Goal</h3>
+                    <p className="text-3xl font-bold text-yellow-600">Mythical Glory</p>
+                    <p className="text-sm text-gray-600">Progress: 65%</p>
+                  </div>
+                  <UsersIcon className="w-12 h-12 text-yellow-600" />
+                </div>
               </div>
             </div>
-
-            {/* Recent Matches */}
-            <div className="bg-gray-800 rounded-lg border border-gray-700">
-              <div className="p-6 border-b border-gray-700">
-                <h2 className="text-xl font-semibold text-white">Recent Matches</h2>
-              </div>
-              <div className="p-6">
-                <div className="space-y-4">
-                  {recentMatches.map((match) => (
-                    <div key={match.id} className="flex items-center justify-between p-4 bg-gray-700/50 rounded-lg">
-                      <div className="flex items-center space-x-4">
-                        <div className="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center">
-                          <span className="text-white font-bold text-sm">{match.hero.slice(0, 2)}</span>
-                        </div>
-                        <div>
-                          <p className="text-white font-medium">{match.hero}</p>
-                          <p className="text-sm text-gray-400">{match.duration}</p>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <p className={`font-medium ${match.result === 'Victory' ? 'text-green-400' : 'text-red-400'}`}>
-                          {match.result}
-                        </p>
-                        <p className="text-sm text-gray-400">{match.kda}</p>
+            
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <PlayerProgressChart />
+              <HeroMetaChart />
+            </div>
+            
+            <div className="bg-white p-6 rounded-lg shadow-lg">
+              <h3 className="text-xl font-bold text-gray-800 mb-4">Recent Match History</h3>
+              <div className="space-y-4">
+                {matchHistory.map((match) => (
+                  <div key={match.id} className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 transition-colors">
+                    <div className="flex items-center space-x-4">
+                      <div className={`w-4 h-4 rounded-full ${match.result === 'Win' ? 'bg-green-500' : 'bg-red-500'}`}></div>
+                      <div>
+                        <p className="font-medium">{match.hero}</p>
+                        <p className="text-sm text-gray-600">{match.mode} • {match.duration}</p>
                       </div>
                     </div>
-                  ))}
-                </div>
+                    <div className="text-right">
+                      <p className={`font-medium ${match.result === 'Win' ? 'text-green-600' : 'text-red-600'}`}>
+                        {match.result}
+                      </p>
+                      <p className="text-sm text-gray-600">{match.kda}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
